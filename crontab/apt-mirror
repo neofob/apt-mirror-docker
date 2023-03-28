@@ -1,0 +1,8 @@
+#
+# Regular cron jobs for the apt-mirror package
+#
+# 0 4 * * * - Run command twice a day
+
+MAILTO=""
+
+15 */12 * * *  apt-mirror /usr/local/bin/apt-mirror | tee -a /var/spool/apt-mirror/var/cron.log

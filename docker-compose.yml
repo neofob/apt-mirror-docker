@@ -1,23 +1,37 @@
+---
 version: '3'
 
-services: 
+services:
+  mirror:
+    container_name: apt-mirror
+    hostname: apt-mirror
+    image: apt-mirror-docker_mirror:neofob
+    build: .
+    restart: always
+    volumes:
+      - "${MIRROR}:/var/spool/apt-mirror"
+      - "${MIRROR_DIR}:/var/spool/apt-mirror/mirror"
+      - "${MIRROR_LIST}:/etc/apt/mirror.list:ro"
+      - "${POST_MIRROR}:/var/spool/apt-mirror/var/postmirror.sh:ro"
+      - "${CRONTAB_DIR}:/etc/cron.d:ro"
+    tmpfs:
+      - "/var/run"
+      - "/var/log"
 
-    mirror:
-        build: .
-        user: ${UID}:${GID}
-        command: bash -c "apt-mirror && bash /apt-mirror/postmirror.sh"
-        volumes:
-            - "./mirror:/var/spool/apt-mirror"
-            - "./mirror.list:/etc/apt/mirror.list"
-            - "./postmirror.sh:/apt-mirror/postmirror.sh"
-
-    server:
-        build:
-            context: .
-            dockerfile: nginx.Dockerfile
-        restart: always
-        command: [nginx-debug, '-g', 'daemon off;']
-        volumes:
-            - "./mirror/mirror:/mirror:ro"
-        ports:
-            - "80:80"
+  server:
+    container_name: apt-mirror-server
+    hostname: apt-mirror-server
+    image: apt-mirror-docker_server:neofob
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    restart: always
+    command: [nginx-debug, '-g', 'daemon off;']
+    restart: always
+    depends_on:
+      - mirror
+    volumes:
+      - "${MIRROR_DIR}:/mirror:ro"
+      - "${NGINX_CONF}:/etc/nginx/conf.d/mirror.conf:ro"
+    ports:
+      - "80:80"

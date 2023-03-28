@@ -28,13 +28,13 @@ That is to say your download time shoudln't exceed 6 hours to be safe : that's w
     docker-compose up mirror
     ```
 
-> This repository is shipped with the Ubuntu 18.04 default `mirror.list` (expect ~210Gb to be downloaded)
+> This repository is shipped with the Ubuntu 22.04 default `mirror.list` (expect ~235Gb to be downloaded)
 
 ## Serving
 
 1. Check your mirroring succeeded in `./mirror/mirror/*` or typing `du -sh ./mirror`
 
-    You are expected to download around **210 Gb** of files at the time of writing.
+    You are expected to download around **235 GB** of files at the time of writing.
 
 2. Run the server :
 
@@ -42,7 +42,8 @@ That is to say your download time shoudln't exceed 6 hours to be safe : that's w
     docker-compose up -d server
     ```
 
-    Server will run on [`localhost:8080`](http://localhost:8080)  
+    Server will run on [`localhost:80`](http://localhost:80)
+    Endpoint `/ubuntu` will serve the directories `pool`, `dists`.
 
 :point_right: Feel free to add a reverse proxy or update the [nginx configuration file](./nginx.conf) to secure the mirror with SSL/TLS  
 :point_right: Feel free to send **pull requests** as well !

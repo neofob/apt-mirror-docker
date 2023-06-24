@@ -1,5 +1,5 @@
 ---
-version: '3'
+version: '3.7'
 
 services:
   mirror:
@@ -17,6 +17,10 @@ services:
     tmpfs:
       - "/var/run"
       - "/var/log"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
   server:
     container_name: apt-mirror-server
@@ -35,3 +39,7 @@ services:
       - "${NGINX_CONF}:/etc/nginx/conf.d/mirror.conf:ro"
     ports:
       - "80:80"
+    deploy:
+      resources:
+        limits:
+          memory: 256M

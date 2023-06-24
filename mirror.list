@@ -5,7 +5,7 @@ set var_path          $base_path/var
 set postmirror_script $var_path/postmirror.sh
 set defaultarch       amd64
 set run_postmirror    0
-set nthreads          8
+set nthreads          4
 set limit_rate        100m
 set _tilde            0
 # Use --unlink with wget (for use with hardlinked directories)
@@ -14,6 +14,7 @@ set use_proxy         off
 set http_proxy        127.0.0.1:3128
 set proxy_user        user
 set proxy_password    password
+set _autoclean        1
 
 deb http://us.archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
 deb http://us.archive.ubuntu.com/ubuntu jammy-security main restricted universe multiverse

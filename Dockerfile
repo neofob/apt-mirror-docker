@@ -4,7 +4,7 @@ FROM debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PKGS="apt-utils cron make perl wget rsync xz-utils bzip2"
-RUN apt-get update && apt-get dist-upgrade -yq && apt-get install -yq ${PKGS}
+RUN apt-get update && apt-get upgrade && apt-get dist-upgrade -yq && apt-get install -yq ${PKGS}
 RUN adduser apt-mirror
 RUN ln -fs /usr/share/zoneinfo/UTC /etc/localtime
 RUN apt-get autoclean -yq && apt-get autoremove -yq

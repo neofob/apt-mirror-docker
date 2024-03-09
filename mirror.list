@@ -5,8 +5,8 @@ set var_path          $base_path/var
 set postmirror_script $var_path/postmirror.sh
 set defaultarch       amd64
 set run_postmirror    0
-set nthreads          4
-set limit_rate        100m
+set nthreads          8
+set limit_rate        1000m
 set _tilde            0
 # Use --unlink with wget (for use with hardlinked directories)
 set unlink            1
@@ -16,18 +16,32 @@ set proxy_user        user
 set proxy_password    password
 set _autoclean        1
 
-deb http://us.archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu jammy-security main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu jammy-updates main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu jammy-backports main restricted universe multiverse
+deb [arch=amd64] http://apt.pop-os.org/proprietary jammy main
+deb [arch=amd64] http://apt.pop-os.org/release jammy main
 
-deb http://us.archive.ubuntu.com/ubuntu focal main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu focal-security main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse
-deb http://us.archive.ubuntu.com/ubuntu focal-backports main restricted universe multiverse
+deb [arch=amd64] http://apt.pop-os.org/ubuntu jammy main multiverse restricted universe
+deb [arch=amd64] http://apt.pop-os.org/ubuntu jammy-backports main multiverse restricted universe
+deb [arch=amd64] http://apt.pop-os.org/ubuntu jammy-security main multiverse restricted universe
+deb [arch=amd64] http://apt.pop-os.org/ubuntu jammy-updates main multiverse restricted universe
 
-deb http://ppa.launchpad.net/gluster/glusterfs-11/ubuntu jammy main
+
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu jammy-security main restricted universe multiverse
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu jammy-updates main restricted universe multiverse
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu jammy-backports main restricted universe multiverse
+
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu noble main restricted universe multiverse
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu noble-security main restricted universe multiverse
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu noble-updates main restricted universe multiverse
+deb [arch=amd64] http://us.archive.ubuntu.com/ubuntu noble-backports main restricted universe multiverse
+
+deb [arch=amd64]  http://ppa.launchpad.net/gluster/glusterfs-11/ubuntu jammy main
+deb [arch=amd64]  http://ppa.launchpad.net/gluster/glusterfs-11/ubuntu noble main
 deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
-deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
 
 clean http://us.archive.ubuntu.com/ubuntu
+clean http://download.docker.com/linux/ubuntu
+clean http://ppa.launchpad.net/gluster/glusterfs-11/ubuntu
+clean http://apt.pop-os.org/proprietary
+clean http://apt.pop-os.org/release
+clean http://apt.pop-os.org/ubuntu

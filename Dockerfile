@@ -14,7 +14,7 @@ COPY ./apt-mirror /apt-mirror
 COPY ./.perltidyrc /apt-mirror
 COPY ./Makefile /apt-mirror
 COPY ./mirror.list /etc/apt
-COPY ./postmirror.sh /apt-mirror
+COPY ./postmirror.sh /var/spool/apt-mirror/var/
 
 RUN make
 RUN make install

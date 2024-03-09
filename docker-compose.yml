@@ -10,7 +10,6 @@ services:
     restart: always
     volumes:
       - "${MIRROR}:/var/spool/apt-mirror"
-      - "${MIRROR_DIR}:/var/spool/apt-mirror/mirror"
       - "${MIRROR_LIST}:/etc/apt/mirror.list:ro"
       - "${POST_MIRROR}:/var/spool/apt-mirror/var/postmirror.sh:ro"
       - "${CRONTAB_DIR}:/etc/cron.d:ro"
@@ -20,7 +19,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 512M
 
   server:
     container_name: apt-mirror-server
@@ -29,11 +28,8 @@ services:
     build:
       context: .
       dockerfile: nginx.Dockerfile
-    restart: always
     command: [nginx-debug, '-g', 'daemon off;']
     restart: always
-    depends_on:
-      - mirror
     volumes:
       - "${MIRROR_DIR}:/mirror:ro"
       - "${NGINX_CONF}:/etc/nginx/conf.d/mirror.conf:ro"

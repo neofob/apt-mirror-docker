@@ -3,4 +3,4 @@
 #
 # 0 4 * * * - Run command at every 04:00
 
-0 */6 * * *   su apt-mirror -c /usr/local/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log
+15 */6 * * *   su apt-mirror -c /usr/local/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log

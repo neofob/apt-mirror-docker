@@ -5,7 +5,7 @@ services:
   mirror:
     container_name: apt-mirror
     hostname: apt-mirror
-    image: apt-mirror-docker_mirror:neofob
+    image: neofob/apt-mirror:mirror
     build: .
     restart: always
     volumes:
@@ -24,7 +24,7 @@ services:
   server:
     container_name: apt-mirror-server
     hostname: apt-mirror-server
-    image: apt-mirror-docker_server:neofob
+    image: neofob/apt-mirror:server
     build:
       context: .
       dockerfile: nginx.Dockerfile

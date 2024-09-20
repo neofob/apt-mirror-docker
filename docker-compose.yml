@@ -1,13 +1,11 @@
 ---
-version: '3.7'
-
 services:
   mirror:
     container_name: apt-mirror
     hostname: apt-mirror
     image: neofob/apt-mirror:mirror
     build: .
-    restart: always
+    restart: unless-stopped
     volumes:
       - "${MIRROR}:/var/spool/apt-mirror"
       - "${MIRROR_LIST}:/etc/apt/mirror.list:ro"
@@ -29,7 +27,7 @@ services:
       context: .
       dockerfile: nginx.Dockerfile
     command: [nginx-debug, '-g', 'daemon off;']
-    restart: always
+    restart: unless-stopped
     volumes:
       - "${MIRROR_DIR}:/mirror:ro"
       - "${NGINX_CONF}:/etc/nginx/conf.d/mirror.conf:ro"

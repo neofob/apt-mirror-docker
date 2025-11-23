@@ -26,7 +26,7 @@ services:
     image: neofob/apt-mirror:server
     build:
       context: .
-      dockerfile: nginx.Dockerfile
+      dockerfile: Dockerfile.nginx
     command: [nginx-debug, '-g', 'daemon off;']
     restart: unless-stopped
     volumes:
